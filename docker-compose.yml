@@ -1,0 +1,65 @@
+# telegram-intel/docker-compose.yml
+
+version: '3.8' # Используем актуальную версию Compose
+
+services:
+  # Сервис Базы Данных PostgreSQL
+  db:
+    image: postgres:15 # Используем версию >=14, как указано (можно 14, 15, 16)
+    container_name: telegram_intel_db_container
+    hostname: db # Имя хоста внутри Docker сети, соответствует POSTGRES_HOST в .env
+    environment:
+      # Переменные окружения для настройки PostgreSQL
+      # Они должны совпадать с теми, что используются в .env и alembic/env.py
+      POSTGRES_USER: ${POSTGRES_USER:-telegram_user} # Используем значения из .env или дефолтные
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-strongpassword}
+      POSTGRES_DB: ${POSTGRES_DB:-telegram_intel_db}
+    ports:
+      # Пробрасываем порт 5432 контейнера на порт 5433 хоста
+      # Чтобы избежать конфликтов, если на хосте уже есть Postgres на 5432
+      # ИЛИ можно использовать "5432:5432", если порт 5432 на хосте свободен
+      - "5433:5432"
+    volumes:
+      # Сохраняем данные PostgreSQL между перезапусками контейнера
+      - postgres_data:/var/lib/postgresql/data
+      # Можно смонтировать кастомные .sql или .sh скрипты для инициализации из docker/postgres/initdb.d
+      # - ./docker/postgres/initdb.d:/docker-entrypoint-initdb.d
+    networks:
+      - telegram_intel_net
+    restart: unless-stopped # Перезапускать контейнер, если он остановился не вручную
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-telegram_user} -d ${POSTGRES_DB:-telegram_intel_db}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Сервис Redis
+  redis:
+    image: redis:7 # Используем последнюю стабильную версию (или 'latest')
+    container_name: telegram_intel_redis_container
+    hostname: redis # Имя хоста внутри Docker сети, соответствует REDIS_HOST в .env
+    ports:
+      # Пробрасываем стандартный порт Redis
+      - "6379:6379"
+    volumes:
+      # Сохраняем данные Redis (если нужно, например, для Celery backend)
+      - redis_data:/data
+    networks:
+      - telegram_intel_net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+# Определяем сети и вольюмы
+networks:
+  telegram_intel_net:
+    driver: bridge # Стандартная сеть Docker
+
+volumes:
+  postgres_data: # Вольюм для данных PostgreSQL
+    driver: local
+  redis_data: # Вольюм для данных Redis
+    driver: local
