@@ -320,3 +320,89 @@
 Реализация API эндпоинтов: (api/v1/endpoints/)
 
 Защита API эндпоинта: (Использование get_current_user из shared)
+
+
+Обновление Журнала разработки:
+
+Дата: 2025-04-21
+
+Текущий этап: Этап 3: Сбор Telegram-чата (data_collector_service)
+
+План на текущий этап (Этап 3):
+
+Создание структуры data_collector_service: ✅
+
+Конфигурация сервиса: (core/config.py) ✅
+
+Настройка асинхронного подключения к БД: (db/session.py) ✅
+
+Создание базового main.py: ✅
+
+Реализация логики Telethon: ✅ (telegram/client.py, telegram/collector.py)
+
+Создание Pydantic моделей: (schemas/) - Текущий шаг ⏳
+
+Реализация CRUD операций: (crud/) (TargetChat, User, ChatParticipant) - Следующий шаг
+
+Интеграция с Celery: (Отложено)
+
+Реализация API эндпоинтов: (api/v1/endpoints/)
+
+Защита API эндпоинта: (Использование get_current_user из shared)
+
+Обновление Журнала разработки:
+
+Дата: 2025-04-21
+
+Текущий этап: Этап 3: Сбор Telegram-чата (data_collector_service)
+
+План на текущий этап (Этап 3):
+
+Создание структуры data_collector_service: ✅
+
+Конфигурация сервиса: (core/config.py) ✅
+
+Настройка асинхронного подключения к БД: (db/session.py) ✅
+
+Создание базового main.py: ✅
+
+Реализация логики Telethon: ✅ (telegram/client.py, telegram/collector.py)
+
+Создание Pydantic моделей: (schemas/) ✅
+
+Реализация CRUD операций: (crud/) (TargetChat, User, ChatParticipant) - Текущий шаг ⏳
+
+Интеграция с Celery: (Отложено)
+
+Реализация API эндпоинтов: (api/v1/endpoints/)
+
+Защита API эндпоинта: (Использование get_current_user из shared)
+
+
+Обновление Журнала разработки:
+
+Дата: 2025-04-21
+
+Текущий этап: Этап 3: Сбор Telegram-чата (data_collector_service)
+
+План на текущий этап (Этап 3):
+
+Создание структуры data_collector_service: ✅
+
+Конфигурация сервиса: (core/config.py) ✅
+
+Настройка асинхронного подключения к БД: (db/session.py) ✅
+
+Создание базового main.py: ✅
+
+Реализация логики Telethon: ✅ (telegram/client.py, telegram/collector.py)
+
+Создание Pydantic моделей: (schemas/) ✅
+
+Реализация CRUD операций: (crud/) ✅ (TargetChat, User, ChatParticipant)
+
+Интеграция с Celery: (Отложено)
+
+Реализация API эндпоинтов: (api/v1/endpoints/) - Текущий шаг ⏳
+
+Защита API эндпоинта: (Использование get_current_user из shared) - Текущий шаг ⏳

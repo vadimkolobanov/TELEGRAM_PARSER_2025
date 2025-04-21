@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 from data_collector_service.core.config import settings
 from data_collector_service.db.session import startup_db_client, shutdown_db_client
 # Импортируем роутеры API (пока закомментировано, добавим позже)
-# from data_collector_service.api.v1.api import api_router as api_v1_router
+from data_collector_service.api.v1.api import api_router as api_v1_router
 
 # --- Lifespan Management ---
 @asynccontextmanager
@@ -37,7 +37,7 @@ app = FastAPI(
 
 # --- Подключение Роутеров API ---
 # Раскомментируем, когда создадим роутер в data_collector_service/api/v1/api.py
-# app.include_router(api_v1_router, prefix=settings.API_V1_STR)
+app.include_router(api_v1_router, prefix=settings.API_V1_STR)
 
 # --- Корневой Эндпоинт ---
 @app.get("/", tags=["Status"])
